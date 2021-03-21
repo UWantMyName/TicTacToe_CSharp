@@ -19,13 +19,14 @@ namespace TicTacToe
 
 		private void PlayWithAnotherButton_Click(object sender, EventArgs e)
 		{
-			ComputerTicTacToeForm form = new ComputerTicTacToeForm();
+			TicTacToeForm form = new TicTacToeForm();
 			form.Show();
 		}
 
 		private void PlayWithComputerButton_Click(object sender, EventArgs e)
 		{
-			TicTacToeForm form = new TicTacToeForm();
+			
+			TTTvsComputer form = new TTTvsComputer();
 			form.Show();
 		}
 
