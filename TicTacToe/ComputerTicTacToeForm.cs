@@ -10,12 +10,9 @@ using System.Windows.Forms;
 
 namespace TicTacToe
 {
-	public partial class TicTacToeForm : Form
+	public partial class ComputerTicTacToeForm : Form
 	{
-		bool Player1Chosen = false;
-		string P1 = "";
-		string P2 = "";
-		public TicTacToeForm()
+		public ComputerTicTacToeForm()
 		{
 			InitializeComponent();
 		}
