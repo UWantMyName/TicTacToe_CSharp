@@ -12,9 +12,11 @@ namespace TicTacToe
 {
 	public partial class TicTacToeForm : Form
 	{
-		public TicTacToeForm()
+		bool PlayWithComputer;
+		public TicTacToeForm(bool PlayWithAnother)
 		{
 			InitializeComponent();
+			PlayWithComputer = !PlayWithAnother;
 		}
 	}
 }
