@@ -37,7 +37,7 @@ namespace TicTacToe
 			// 
 			// ExitGameButton
 			// 
-			this.ExitGameButton.BackColor = System.Drawing.SystemColors.Control;
+			this.ExitGameButton.BackColor = System.Drawing.Color.White;
 			this.ExitGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.ExitGameButton.Location = new System.Drawing.Point(12, 321);
 			this.ExitGameButton.Name = "ExitGameButton";
@@ -49,7 +49,7 @@ namespace TicTacToe
 			// 
 			// PlayWithComputerButton
 			// 
-			this.PlayWithComputerButton.BackColor = System.Drawing.SystemColors.Control;
+			this.PlayWithComputerButton.BackColor = System.Drawing.Color.White;
 			this.PlayWithComputerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.PlayWithComputerButton.Location = new System.Drawing.Point(12, 287);
 			this.PlayWithComputerButton.Name = "PlayWithComputerButton";
@@ -61,7 +61,7 @@ namespace TicTacToe
 			// 
 			// PlayWithAnotherButton
 			// 
-			this.PlayWithAnotherButton.BackColor = System.Drawing.SystemColors.Control;
+			this.PlayWithAnotherButton.BackColor = System.Drawing.Color.White;
 			this.PlayWithAnotherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.PlayWithAnotherButton.Location = new System.Drawing.Point(12, 253);
 			this.PlayWithAnotherButton.Name = "PlayWithAnotherButton";
@@ -73,12 +73,14 @@ namespace TicTacToe
 			// 
 			// textBox1
 			// 
+			this.textBox1.BackColor = System.Drawing.Color.White;
+			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.textBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
 			this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.textBox1.Location = new System.Drawing.Point(12, 22);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(360, 47);
+			this.textBox1.Size = new System.Drawing.Size(360, 40);
 			this.textBox1.TabIndex = 13;
 			this.textBox1.Text = "Tic Tac Toe";
 			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -87,11 +89,13 @@ namespace TicTacToe
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(384, 361);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.PlayWithAnotherButton);
 			this.Controls.Add(this.PlayWithComputerButton);
 			this.Controls.Add(this.ExitGameButton);
+			this.ForeColor = System.Drawing.Color.Black;
 			this.Name = "MainMenu";
 			this.Text = "Tic Tac Toe";
 			this.ResumeLayout(false);

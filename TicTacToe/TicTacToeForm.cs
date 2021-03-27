@@ -17,7 +17,8 @@ namespace TicTacToe
 		string generalPath = Directory.GetCurrentDirectory();
 		string XPath;
 		string OPath;
-		Button[ , ] Grid = new Button[3, 3];
+		bool XWon = true;
+		Button[,] Grid = new Button[3, 3];
 		public TicTacToeForm()
 		{
 			InitializeComponent();
@@ -57,14 +58,57 @@ namespace TicTacToe
 
 			b.Enabled = false;
 			X = !X;
-
-			Check();
+			
+			if (Check())
+			{
+				string message = "Game Over! Tis game was won by ";
+				if (XWon) message += "X.";
+				else message += "O.";
+			}
 		}
 
-		public void Check()
+		public bool Check()
 		{
+			MessageBox.Show("Checking.");
+
+			for (int i = 0; i < 3; i++)
+			{
+				// Check Rows
+				if (Grid[i, 0].Text == Grid[i, 1].Text && Grid[i, 1].Text == Grid[i, 2].Text)
+				{
+					if (Grid[i, 0].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[" + i.ToString() + ", 0] is X");
+
+					else if (Grid[i, 0].BackgroundImage == Image.FromFile(OPath)) XWon = false;
+					if (Grid[i, 0].BackgroundImage != null) return true;
+				}
+
+				// Check Columns
+				if (Grid[0, i].Text == Grid[1, i].Text && Grid[1, i].Text == Grid[2, i].Text)
+				{
+					if (Grid[0, i].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[0, " + i.ToString() + "] is X");
+					else if (Grid[0, i].BackgroundImage == Image.FromFile(OPath)) XWon = false;
+					if (Grid[0, i].BackgroundImage != null) return true;
+				}
+
+				// Check Diagonals
+				if (Grid[0, 0].Text == Grid[1, 1].Text && Grid[1, 1].Text == Grid[2, 2].Text)
+				{
+					if (Grid[1, 1].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[1, 1] is X");
+					else if (Grid[1, 1].BackgroundImage == Image.FromFile(OPath)) XWon = false;
+					if (Grid[1, 1].BackgroundImage != null) return true;
+				}
+
+				if (Grid[2, 0].Text == Grid[1, 1].Text && Grid[1, 1].Text == Grid[0, 2].Text)
+				{
+					if (Grid[1, 1].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[1, 1] is X");
+					else if (Grid[1, 1].BackgroundImage == Image.FromFile(OPath)) XWon = false;
+					if (Grid[1, 1].BackgroundImage != null) return true;
+				}
+			}
+
+			return false;
+
 
 		}
-
 	}
 }
