@@ -17,7 +17,7 @@ namespace TicTacToe
 		string generalPath = Directory.GetCurrentDirectory();
 		string XPath;
 		string OPath;
-		bool XWon = true;
+		string winner = "";
 		Button[,] Grid = new Button[3, 3];
 		public TicTacToeForm()
 		{
@@ -51,64 +51,137 @@ namespace TicTacToe
 			Button b = sender as Button;
 
 			if (!b.Enabled) return;
-			if (X) b.BackgroundImage = Image.FromFile(XPath);
-			else b.BackgroundImage = Image.FromFile(OPath);
+
+			if (X)
+			{
+				b.BackgroundImage = Image.FromFile(XPath);
+				b.Text = "X";
+				b.TextAlign = ContentAlignment.TopCenter;
+			}
+
+			else
+			{
+				b.BackgroundImage = Image.FromFile(OPath);
+				b.Text = "0";
+				b.TextAlign = ContentAlignment.MiddleCenter;
+			}
 
 			b.BackgroundImageLayout = ImageLayout.Stretch;
+
 
 			b.Enabled = false;
 			X = !X;
 			
 			if (Check())
 			{
-				string message = "Game Over! Tis game was won by ";
-				if (XWon) message += "X.";
-				else message += "O.";
+				string message;
+
+				if (winner == "-")
+				{
+					message = "Game was a draw.";
+				}
+
+				else
+				{
+					message = "This game was won by " + winner + ".";
+				}
+
+				MessageBox.Show(message);
+				DisableAllButtons();
 			}
 		}
 
 		public bool Check()
 		{
-			MessageBox.Show("Checking.");
+			bool GameFinished = false;
+			string result = "";
 
-			for (int i = 0; i < 3; i++)
+			// Horizontal
+
+			for (int j = 0; j < 3 && !GameFinished; j++)
 			{
-				// Check Rows
-				if (Grid[i, 0].Text == Grid[i, 1].Text && Grid[i, 1].Text == Grid[i, 2].Text)
-				{
-					if (Grid[i, 0].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[" + i.ToString() + ", 0] is X");
+				result = "";
 
-					else if (Grid[i, 0].BackgroundImage == Image.FromFile(OPath)) XWon = false;
-					if (Grid[i, 0].BackgroundImage != null) return true;
+				for (int i = 0; i < 3; i++)
+				{
+					result += Grid[i, j].Text;
 				}
 
-				// Check Columns
-				if (Grid[0, i].Text == Grid[1, i].Text && Grid[1, i].Text == Grid[2, i].Text)
+				if (result == "000" || result == "XXX")
 				{
-					if (Grid[0, i].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[0, " + i.ToString() + "] is X");
-					else if (Grid[0, i].BackgroundImage == Image.FromFile(OPath)) XWon = false;
-					if (Grid[0, i].BackgroundImage != null) return true;
-				}
-
-				// Check Diagonals
-				if (Grid[0, 0].Text == Grid[1, 1].Text && Grid[1, 1].Text == Grid[2, 2].Text)
-				{
-					if (Grid[1, 1].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[1, 1] is X");
-					else if (Grid[1, 1].BackgroundImage == Image.FromFile(OPath)) XWon = false;
-					if (Grid[1, 1].BackgroundImage != null) return true;
-				}
-
-				if (Grid[2, 0].Text == Grid[1, 1].Text && Grid[1, 1].Text == Grid[0, 2].Text)
-				{
-					if (Grid[1, 1].BackgroundImage == Image.FromFile(XPath)) MessageBox.Show("[1, 1] is X");
-					else if (Grid[1, 1].BackgroundImage == Image.FromFile(OPath)) XWon = false;
-					if (Grid[1, 1].BackgroundImage != null) return true;
+					GameFinished = true;
+					winner = result[0].ToString();
 				}
 			}
 
-			return false;
+			// Vertical
+
+			for (int j = 0; j < 3 && !GameFinished; j++)
+			{
+				result = "";
+
+				for (int i = 0; i < 3; i++)
+				{
+					result += Grid[j, i].Text;
+				}
+
+				if (result == "000" || result == "XXX")
+				{
+					GameFinished = true;
+					winner = result[0].ToString();
+				}
+			}
+
+			// Primary Diagonal
+			result = "";
+			result += Grid[0, 0].Text + Grid[1, 1].Text + Grid[2, 2].Text;
+
+			
+			if (result == "000" || result == "XXX")
+			{
+				GameFinished = true;
+				winner = result[0].ToString();
+			}
 
 
+
+			// Secondary Diagonal
+			result = "";
+			result += Grid[0, 2].Text + Grid[1, 1].Text + Grid[2, 0].Text;
+
+
+			if (result == "000" || result == "XXX")
+			{
+				GameFinished = true;
+				winner = result[0].ToString();
+			}
+
+			// Checking for Draw
+
+			bool full = true;
+
+			for (int i = 0; i < 3; i++)
+				for (int j = 0; j < 3; j++)
+				{
+					if (Grid[i, j].Text == "") full = false;
+				}
+
+
+			if (!GameFinished && full)
+			{
+				GameFinished = true;
+				winner = "-";
+			}
+
+			return GameFinished;
+
+		}
+
+		public void DisableAllButtons()
+		{
+			for (int i = 0; i < 3; i++)
+				for (int j = 0; j < 3; j++)
+					Grid[i, j].Enabled = false;
 		}
 	}
 }
