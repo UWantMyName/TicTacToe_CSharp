@@ -49,38 +49,39 @@ namespace TicTacToe
 		{
 			Button b = sender as Button;
 
-			if (!b.Enabled || !X) return;
-
-			b.BackgroundImage = Image.FromFile(XPath);
-			b.Text = "X";
-			b.TextAlign = ContentAlignment.TopCenter;
-			
-
-			b.BackgroundImageLayout = ImageLayout.Stretch;
-
-
-			b.Enabled = false;
-			X = !X;
-
-			if (Check())
+			if (X && b.Enabled)
 			{
-				string message;
+				b.BackgroundImage = Image.FromFile(XPath);
+				b.Text = "X";
+				b.TextAlign = ContentAlignment.TopCenter;
 
-				if (winner == "-")
+
+				b.BackgroundImageLayout = ImageLayout.Stretch;
+
+
+				b.Enabled = false;
+				X = !X;
+
+				if (Check())
 				{
-					message = "Game was a draw.";
+					string message;
+
+					if (winner == "-")
+					{
+						message = "Game was a draw.";
+					}
+
+					else
+					{
+						message = "This game was won by " + winner + ".";
+					}
+
+					MessageBox.Show(message);
+					DisableAllButtons();
 				}
 
-				else
-				{
-					message = "This game was won by " + winner + ".";
-				}
-
-				MessageBox.Show(message);
-				DisableAllButtons();
+				else ComputerTurn();
 			}
-
-			ComputerTurn();
 		}
 
 		public bool Check()
@@ -188,6 +189,29 @@ namespace TicTacToe
 			b.BackgroundImage = Image.FromFile(OPath);
 			b.Text = "0";
 			b.TextAlign = ContentAlignment.MiddleCenter;
+			b.BackgroundImageLayout = ImageLayout.Stretch;
+			b.Enabled = false;
+
+			if (Check())
+			{
+				string message;
+
+				if (winner == "-")
+				{
+					message = "Game was a draw.";
+				}
+
+				else
+				{
+					message = "This game was won by " + winner + ".";
+				}
+
+				MessageBox.Show(message);
+				DisableAllButtons();
+			}
+
+			X = !X;
+
 		}
 		public void DisableAllButtons()
 		{
