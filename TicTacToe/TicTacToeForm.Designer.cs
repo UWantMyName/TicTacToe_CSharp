@@ -196,6 +196,7 @@ namespace TicTacToe
 			this.Controls.Add(this.AA);
 			this.ForeColor = System.Drawing.Color.Black;
 			this.Name = "TicTacToeForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Tic Tac Toe";
 			this.ResumeLayout(false);
 			this.PerformLayout();

@@ -94,6 +94,7 @@ namespace TicTacToe
 			this.Controls.Add(this.ExitGameButton);
 			this.ForeColor = System.Drawing.Color.Black;
 			this.Name = "MainMenu";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Tic Tac Toe";
 			this.ResumeLayout(false);
 			this.PerformLayout();
