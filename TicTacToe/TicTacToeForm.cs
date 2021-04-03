@@ -13,16 +13,23 @@ namespace TicTacToe
 {
 	public partial class TicTacToeForm : Form
 	{
-		bool X = true;
+		bool XTurn = true;
 		string generalPath = Directory.GetCurrentDirectory();
 		string XPath;
 		string OPath;
 		string winner = "";
-		Button[,] Grid = new Button[3, 3];
+		Button[,] ButtonGrid = new Button[3, 3];
 		public TicTacToeForm()
 		{
 			InitializeComponent();
+			InitializeBoard();
+		}
 
+		/// <summary>
+		/// Sets paths for the image for X and the image for O. It places each of the 9 buttons in a 3 x 3 matrix.
+		/// </summary>
+		private void InitializeBoard()
+		{
 			for (int i = 0; i < generalPath.Length - 9; i++)
 			{
 				XPath += generalPath[i];
@@ -33,26 +40,31 @@ namespace TicTacToe
 			OPath += "0.png";
 
 
-			Grid[0, 0] = AA;
-			Grid[0, 1] = AB;
-			Grid[0, 2] = AC;
+			ButtonGrid[0, 0] = AA;
+			ButtonGrid[0, 1] = AB;
+			ButtonGrid[0, 2] = AC;
 
-			Grid[1, 0] = BA;
-			Grid[1, 1] = BB;
-			Grid[1, 2] = BC;
+			ButtonGrid[1, 0] = BA;
+			ButtonGrid[1, 1] = BB;
+			ButtonGrid[1, 2] = BC;
 
-			Grid[2, 0] = CA;
-			Grid[2, 1] = CB;
-			Grid[2, 2] = CC;
+			ButtonGrid[2, 0] = CA;
+			ButtonGrid[2, 1] = CB;
+			ButtonGrid[2, 2] = CC;
 		}
 
-		public void ButtonClick(object sender, EventArgs e)
+		/// <summary>
+		/// Makes the button's background image an X or O depending on whose turn it is.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ButtonClick(object sender, EventArgs e)
 		{
 			Button b = sender as Button;
 
 			if (!b.Enabled) return;
 
-			if (X)
+			if (XTurn)
 			{
 				b.BackgroundImage = Image.FromFile(XPath);
 				b.Text = "X";
@@ -70,7 +82,7 @@ namespace TicTacToe
 
 
 			b.Enabled = false;
-			X = !X;
+			XTurn = !XTurn;
 			
 			if (Check())
 			{
@@ -91,7 +103,11 @@ namespace TicTacToe
 			}
 		}
 
-		public bool Check()
+		/// <summary>
+		///  Checks the diagonals, rows and columns of the 3 x 3 matrix for '000' and 'XXX'.
+		/// </summary>
+		/// <returns></returns>
+		private bool Check()
 		{
 			bool GameFinished = false;
 			string result = "";
@@ -104,7 +120,7 @@ namespace TicTacToe
 
 				for (int i = 0; i < 3; i++)
 				{
-					result += Grid[i, j].Text;
+					result += ButtonGrid[i, j].Text;
 				}
 
 				if (result == "000" || result == "XXX")
@@ -122,7 +138,7 @@ namespace TicTacToe
 
 				for (int i = 0; i < 3; i++)
 				{
-					result += Grid[j, i].Text;
+					result += ButtonGrid[j, i].Text;
 				}
 
 				if (result == "000" || result == "XXX")
@@ -134,7 +150,7 @@ namespace TicTacToe
 
 			// Primary Diagonal
 			result = "";
-			result += Grid[0, 0].Text + Grid[1, 1].Text + Grid[2, 2].Text;
+			result += ButtonGrid[0, 0].Text + ButtonGrid[1, 1].Text + ButtonGrid[2, 2].Text;
 
 			
 			if (result == "000" || result == "XXX")
@@ -147,7 +163,7 @@ namespace TicTacToe
 
 			// Secondary Diagonal
 			result = "";
-			result += Grid[0, 2].Text + Grid[1, 1].Text + Grid[2, 0].Text;
+			result += ButtonGrid[0, 2].Text + ButtonGrid[1, 1].Text + ButtonGrid[2, 0].Text;
 
 
 			if (result == "000" || result == "XXX")
@@ -163,7 +179,7 @@ namespace TicTacToe
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
 				{
-					if (Grid[i, j].Text == "") full = false;
+					if (ButtonGrid[i, j].Text == "") full = false;
 				}
 
 
@@ -177,11 +193,14 @@ namespace TicTacToe
 
 		}
 
-		public void DisableAllButtons()
+		/// <summary>
+		/// Makes all buttons disabled.
+		/// </summary>
+		private void DisableAllButtons()
 		{
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
-					Grid[i, j].Enabled = false;
+					ButtonGrid[i, j].Enabled = false;
 		}
 	}
 }

@@ -29,7 +29,6 @@ namespace TicTacToe
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.CC = new System.Windows.Forms.Button();
 			this.CB = new System.Windows.Forms.Button();
 			this.CA = new System.Windows.Forms.Button();
@@ -41,21 +40,8 @@ namespace TicTacToe
 			this.AA = new System.Windows.Forms.Button();
 			this.AsX = new System.Windows.Forms.Button();
 			this.AsO = new System.Windows.Forms.Button();
+			this.TicTacToeTitle = new System.Windows.Forms.Label();
 			this.SuspendLayout();
-			// 
-			// textBox1
-			// 
-			this.textBox1.BackColor = System.Drawing.Color.White;
-			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
-			this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox1.Location = new System.Drawing.Point(11, 11);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(370, 40);
-			this.textBox1.TabIndex = 22;
-			this.textBox1.Text = "Tic Tac Toe";
-			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// CC
 			// 
@@ -207,15 +193,26 @@ namespace TicTacToe
 			this.AsO.UseVisualStyleBackColor = true;
 			this.AsO.Click += new System.EventHandler(this.SetPlayer);
 			// 
+			// TicTacToeTitle
+			// 
+			this.TicTacToeTitle.AutoSize = true;
+			this.TicTacToeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.TicTacToeTitle.Location = new System.Drawing.Point(106, 9);
+			this.TicTacToeTitle.Name = "TicTacToeTitle";
+			this.TicTacToeTitle.Size = new System.Drawing.Size(199, 39);
+			this.TicTacToeTitle.TabIndex = 25;
+			this.TicTacToeTitle.Text = "Tic Tac Toe";
+			this.TicTacToeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// TTTvsComputer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(395, 522);
+			this.Controls.Add(this.TicTacToeTitle);
 			this.Controls.Add(this.AsO);
 			this.Controls.Add(this.AsX);
-			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.CC);
 			this.Controls.Add(this.CB);
 			this.Controls.Add(this.CA);
@@ -233,8 +230,6 @@ namespace TicTacToe
 		}
 
 		#endregion
-
-		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Button CC;
 		private System.Windows.Forms.Button CB;
 		private System.Windows.Forms.Button CA;
@@ -246,5 +241,6 @@ namespace TicTacToe
 		private System.Windows.Forms.Button AA;
 		private System.Windows.Forms.Button AsX;
 		private System.Windows.Forms.Button AsO;
+		private System.Windows.Forms.Label TicTacToeTitle;
 	}
 }
