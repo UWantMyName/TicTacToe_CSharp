@@ -22,12 +22,16 @@ namespace TicTacToe
 		private string OPath;
 		private string winner = "";
 
-		private Button[,] Grid = new Button[3, 3];
+		private Button[,] ButtonGrid = new Button[3, 3];
 		public TTTvsComputer()
 		{
 			InitializeComponent();
 			InitializeBoard();
 		}
+		
+		/// <summary>
+		/// Sets paths for the image for X and the image for O. It places each of the 9 buttons in a 3 x 3 matrix.
+		/// </summary>
 		private void InitializeBoard()
 		{
 			for (int i = 0; i < generalPath.Length - 9; i++)
@@ -40,19 +44,25 @@ namespace TicTacToe
 			OPath += "0.png";
 
 
-			Grid[0, 0] = AA;
-			Grid[0, 1] = AB;
-			Grid[0, 2] = AC;
+			ButtonGrid[0, 0] = AA;
+			ButtonGrid[0, 1] = AB;
+			ButtonGrid[0, 2] = AC;
 
-			Grid[1, 0] = BA;
-			Grid[1, 1] = BB;
-			Grid[1, 2] = BC;
+			ButtonGrid[1, 0] = BA;
+			ButtonGrid[1, 1] = BB;
+			ButtonGrid[1, 2] = BC;
 
-			Grid[2, 0] = CA;
-			Grid[2, 1] = CB;
-			Grid[2, 2] = CC;
+			ButtonGrid[2, 0] = CA;
+			ButtonGrid[2, 1] = CB;
+			ButtonGrid[2, 2] = CC;
 
 		}
+		
+		/// <summary>
+		/// Makes the button's background image an X or O if clicked by user, side is picked and it is not computer's turn.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ButtonClick(object sender, EventArgs e)
 		{
 			if (!SidePicked) return;
@@ -101,6 +111,11 @@ namespace TicTacToe
 				else ComputerTurn();
 			}
 		}
+		
+		/// <summary>
+		/// Checks the diagonals, rows and columns of the 3 x 3 matrix for '000' and 'XXX'.
+		/// </summary>
+		/// <returns></returns>
 		private bool Check()
 		{
 			bool GameFinished = false;
@@ -114,7 +129,7 @@ namespace TicTacToe
 
 				for (int i = 0; i < 3; i++)
 				{
-					result += Grid[i, j].Text;
+					result += ButtonGrid[i, j].Text;
 				}
 
 				if (result == "000" || result == "XXX")
@@ -133,7 +148,7 @@ namespace TicTacToe
 
 				for (int i = 0; i < 3; i++)
 				{
-					result += Grid[j, i].Text;
+					result += ButtonGrid[j, i].Text;
 				}
 
 				if (result == "000" || result == "XXX")
@@ -144,8 +159,9 @@ namespace TicTacToe
 			}
 
 			// Primary Diagonal
+
 			result = "";
-			result += Grid[0, 0].Text + Grid[1, 1].Text + Grid[2, 2].Text;
+			result += ButtonGrid[0, 0].Text + ButtonGrid[1, 1].Text + ButtonGrid[2, 2].Text;
 
 
 			if (result == "000" || result == "XXX")
@@ -157,8 +173,9 @@ namespace TicTacToe
 
 
 			// Secondary Diagonal
+
 			result = "";
-			result += Grid[0, 2].Text + Grid[1, 1].Text + Grid[2, 0].Text;
+			result += ButtonGrid[0, 2].Text + ButtonGrid[1, 1].Text + ButtonGrid[2, 0].Text;
 
 
 			if (result == "000" || result == "XXX")
@@ -174,7 +191,7 @@ namespace TicTacToe
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
 				{
-					if (Grid[i, j].Text == "") full = false;
+					if (ButtonGrid[i, j].Text == "") full = false;
 				}
 
 
@@ -187,6 +204,10 @@ namespace TicTacToe
 			return GameFinished;
 
 		}
+		
+		/// <summary>
+		/// Makes the computer put the opposite image on any random available square.
+		/// </summary>
 		private void ComputerTurn()
 		{
 			List<Button> enabled = new List<Button>();
@@ -194,7 +215,7 @@ namespace TicTacToe
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
 				{
-					if (Grid[i, j].Enabled) enabled.Add(Grid[i, j]);
+					if (ButtonGrid[i, j].Enabled) enabled.Add(ButtonGrid[i, j]);
 				}
 
 
@@ -240,12 +261,22 @@ namespace TicTacToe
 			PlayerTurn = !PlayerTurn;
 
 		}
+		
+		/// <summary>
+		/// Makes all buttons disabled.
+		/// </summary>
 		private void DisableAllButtons()
 		{
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
-					Grid[i, j].Enabled = false;
+					ButtonGrid[i, j].Enabled = false;
 		}
+		
+		/// <summary>
+		/// Method that sets the symbol for the current player (and the opposite for the CPU).
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void SetPlayer(object sender, EventArgs e)
 		{
 			Button b = sender as Button;
@@ -257,6 +288,12 @@ namespace TicTacToe
 			AsO.Enabled = false;
 
 			SidePicked = true;
+			
+			if( side == "O")
+			{
+				PlayerTurn = false;
+				ComputerTurn();
+			}
 
 		}
 	}
