@@ -13,15 +13,23 @@ namespace TicTacToe
 {
 	public partial class TTTvsComputer : Form
 	{
-		bool X = true;
-		string generalPath = Directory.GetCurrentDirectory();
-		string XPath;
-		string OPath;
-		string winner = "";
-		Button[,] Grid = new Button[3, 3];
+		private bool PlayerTurn = true;
+		private bool SidePicked = false;
+
+		private string generalPath = Directory.GetCurrentDirectory();
+		private string side;
+		private string XPath;
+		private string OPath;
+		private string winner = "";
+
+		private Button[,] Grid = new Button[3, 3];
 		public TTTvsComputer()
 		{
 			InitializeComponent();
+			InitializeBoard();
+		}
+		private void InitializeBoard()
+		{
 			for (int i = 0; i < generalPath.Length - 9; i++)
 			{
 				XPath += generalPath[i];
@@ -43,24 +51,34 @@ namespace TicTacToe
 			Grid[2, 0] = CA;
 			Grid[2, 1] = CB;
 			Grid[2, 2] = CC;
-		}
 
-		public void ButtonClick(object sender, EventArgs e)
+		}
+		private void ButtonClick(object sender, EventArgs e)
 		{
+			if (!SidePicked) return;
+
 			Button b = sender as Button;
 
-			if (X && b.Enabled)
+			if (PlayerTurn && b.Enabled)
 			{
-				b.BackgroundImage = Image.FromFile(XPath);
-				b.Text = "X";
+				if (side == "X")
+				{
+					b.BackgroundImage = Image.FromFile(XPath);
+					b.Text = "X";
+				}
+
+				else
+				{
+					b.BackgroundImage = Image.FromFile(OPath);
+					b.Text = "0";
+				}
+
 				b.TextAlign = ContentAlignment.TopCenter;
-
-
 				b.BackgroundImageLayout = ImageLayout.Stretch;
 
 
 				b.Enabled = false;
-				X = !X;
+				PlayerTurn = !PlayerTurn;
 
 				if (Check())
 				{
@@ -83,8 +101,7 @@ namespace TicTacToe
 				else ComputerTurn();
 			}
 		}
-
-		public bool Check()
+		private bool Check()
 		{
 			bool GameFinished = false;
 			string result = "";
@@ -104,6 +121,7 @@ namespace TicTacToe
 				{
 					GameFinished = true;
 					winner = result[0].ToString();
+					
 				}
 			}
 
@@ -169,7 +187,6 @@ namespace TicTacToe
 			return GameFinished;
 
 		}
-
 		private void ComputerTurn()
 		{
 			List<Button> enabled = new List<Button>();
@@ -186,8 +203,18 @@ namespace TicTacToe
 
 			Button b = enabled[index];
 
-			b.BackgroundImage = Image.FromFile(OPath);
-			b.Text = "0";
+			if (side == "O")
+			{
+				b.BackgroundImage = Image.FromFile(XPath);
+				b.Text = "X";
+			}
+
+			else
+			{
+				b.BackgroundImage = Image.FromFile(OPath);
+				b.Text = "0";
+			}
+
 			b.TextAlign = ContentAlignment.MiddleCenter;
 			b.BackgroundImageLayout = ImageLayout.Stretch;
 			b.Enabled = false;
@@ -210,14 +237,27 @@ namespace TicTacToe
 				DisableAllButtons();
 			}
 
-			X = !X;
+			PlayerTurn = !PlayerTurn;
 
 		}
-		public void DisableAllButtons()
+		private void DisableAllButtons()
 		{
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
 					Grid[i, j].Enabled = false;
+		}
+		private void SetPlayer(object sender, EventArgs e)
+		{
+			Button b = sender as Button;
+
+			b.BackColor = Color.AliceBlue;
+			side = b.Text[b.Text.Length - 1].ToString();
+
+			AsX.Enabled = false;
+			AsO.Enabled = false;
+
+			SidePicked = true;
+
 		}
 	}
 }

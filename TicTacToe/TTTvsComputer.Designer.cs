@@ -39,6 +39,8 @@ namespace TicTacToe
 			this.AC = new System.Windows.Forms.Button();
 			this.AB = new System.Windows.Forms.Button();
 			this.AA = new System.Windows.Forms.Button();
+			this.AsX = new System.Windows.Forms.Button();
+			this.AsO = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// textBox1
@@ -181,12 +183,38 @@ namespace TicTacToe
 			this.AA.UseVisualStyleBackColor = false;
 			this.AA.Click += new System.EventHandler(this.ButtonClick);
 			// 
+			// AsX
+			// 
+			this.AsX.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.AsX.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.AsX.Location = new System.Drawing.Point(14, 451);
+			this.AsX.Name = "AsX";
+			this.AsX.Size = new System.Drawing.Size(180, 60);
+			this.AsX.TabIndex = 23;
+			this.AsX.Text = "Play As X";
+			this.AsX.UseVisualStyleBackColor = true;
+			this.AsX.Click += new System.EventHandler(this.SetPlayer);
+			// 
+			// AsO
+			// 
+			this.AsO.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.AsO.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.AsO.Location = new System.Drawing.Point(200, 451);
+			this.AsO.Name = "AsO";
+			this.AsO.Size = new System.Drawing.Size(180, 60);
+			this.AsO.TabIndex = 24;
+			this.AsO.Text = "Play As O";
+			this.AsO.UseVisualStyleBackColor = true;
+			this.AsO.Click += new System.EventHandler(this.SetPlayer);
+			// 
 			// TTTvsComputer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
-			this.ClientSize = new System.Drawing.Size(395, 450);
+			this.ClientSize = new System.Drawing.Size(395, 522);
+			this.Controls.Add(this.AsO);
+			this.Controls.Add(this.AsX);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.CC);
 			this.Controls.Add(this.CB);
@@ -216,5 +244,7 @@ namespace TicTacToe
 		private System.Windows.Forms.Button AC;
 		private System.Windows.Forms.Button AB;
 		private System.Windows.Forms.Button AA;
+		private System.Windows.Forms.Button AsX;
+		private System.Windows.Forms.Button AsO;
 	}
 }
