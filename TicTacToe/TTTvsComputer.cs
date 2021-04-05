@@ -16,11 +16,13 @@ namespace TicTacToe
 		private bool PlayerTurn = true;
 		private bool SidePicked = false;
 
-		private string generalPath = Directory.GetCurrentDirectory();
-		private string side;
+		private string GeneralPath = Directory.GetCurrentDirectory();
+		private string PlayerSide;
 		private string XPath;
 		private string OPath;
-		private string winner = "";
+		private string WinnerName = "";
+
+		private int index;
 
 		private Button[,] ButtonGrid = new Button[3, 3];
 		public TTTvsComputer()
@@ -34,10 +36,10 @@ namespace TicTacToe
 		/// </summary>
 		private void InitializeBoard()
 		{
-			for (int i = 0; i < generalPath.Length - 9; i++)
+			for (int i = 0; i < GeneralPath.Length - 9; i++)
 			{
-				XPath += generalPath[i];
-				OPath += generalPath[i];
+				XPath += GeneralPath[i];
+				OPath += GeneralPath[i];
 			}
 
 			XPath += "X.png";
@@ -71,7 +73,7 @@ namespace TicTacToe
 
 			if (PlayerTurn && b.Enabled)
 			{
-				if (side == "X")
+				if (PlayerSide == "X")
 				{
 					b.BackgroundImage = Image.FromFile(XPath);
 					b.Text = "X";
@@ -94,14 +96,14 @@ namespace TicTacToe
 				{
 					string message;
 
-					if (winner == "-")
+					if (WinnerName == "-")
 					{
 						message = "Game was a draw.";
 					}
 
 					else
 					{
-						message = "This game was won by " + winner + ".";
+						message = "This game was won by " + WinnerName + ".";
 					}
 
 					MessageBox.Show(message);
@@ -135,7 +137,7 @@ namespace TicTacToe
 				if (result == "000" || result == "XXX")
 				{
 					GameFinished = true;
-					winner = result[0].ToString();
+					WinnerName = result[0].ToString();
 					
 				}
 			}
@@ -154,7 +156,7 @@ namespace TicTacToe
 				if (result == "000" || result == "XXX")
 				{
 					GameFinished = true;
-					winner = result[0].ToString();
+					WinnerName = result[0].ToString();
 				}
 			}
 
@@ -167,7 +169,7 @@ namespace TicTacToe
 			if (result == "000" || result == "XXX")
 			{
 				GameFinished = true;
-				winner = result[0].ToString();
+				WinnerName = result[0].ToString();
 			}
 
 
@@ -181,7 +183,7 @@ namespace TicTacToe
 			if (result == "000" || result == "XXX")
 			{
 				GameFinished = true;
-				winner = result[0].ToString();
+				WinnerName = result[0].ToString();
 			}
 
 			// Checking for Draw
@@ -198,7 +200,7 @@ namespace TicTacToe
 			if (!GameFinished && full)
 			{
 				GameFinished = true;
-				winner = "-";
+				WinnerName = "-";
 			}
 
 			return GameFinished;
@@ -220,11 +222,13 @@ namespace TicTacToe
 
 
 			Random rnd = new Random();
-			int index = rnd.Next(enabled.Count);
+			index = rnd.Next(enabled.Count);
+
+			CheckForTwos();
 
 			Button b = enabled[index];
 
-			if (side == "O")
+			if (PlayerSide == "O")
 			{
 				b.BackgroundImage = Image.FromFile(XPath);
 				b.Text = "X";
@@ -244,14 +248,14 @@ namespace TicTacToe
 			{
 				string message;
 
-				if (winner == "-")
+				if (WinnerName == "-")
 				{
 					message = "Game was a draw.";
 				}
 
 				else
 				{
-					message = "This game was won by " + winner + ".";
+					message = "This game was won by " + WinnerName + ".";
 				}
 
 				MessageBox.Show(message);
@@ -261,7 +265,15 @@ namespace TicTacToe
 			PlayerTurn = !PlayerTurn;
 
 		}
+
+		/// <summary>
+		/// Checks if two of the computer's symbols are present so that the computer can win if it is obvious.
+		/// </summary>
+		private void CheckForTwos()
+		{
 		
+		}
+
 		/// <summary>
 		/// Makes all buttons disabled.
 		/// </summary>
@@ -282,14 +294,14 @@ namespace TicTacToe
 			Button b = sender as Button;
 
 			b.BackColor = Color.AliceBlue;
-			side = b.Text[b.Text.Length - 1].ToString();
+			PlayerSide = b.Text[b.Text.Length - 1].ToString();
 
 			AsX.Enabled = false;
 			AsO.Enabled = false;
 
 			SidePicked = true;
 			
-			if( side == "O")
+			if( PlayerSide == "O")
 			{
 				PlayerTurn = false;
 				ComputerTurn();
